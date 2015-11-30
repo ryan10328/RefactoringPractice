@@ -33,5 +33,31 @@ namespace VideoStore
             _movie = movie;
             _daysRented = daysRented;
         }
+
+        public double GetAmount()
+        {
+            double thisAmount = 0;
+            //determine amounts for each line
+            switch (Movie.PriceCode)
+            {
+                case MovieType.REGULAR: //普通片
+                    thisAmount += 2;
+                    if (DaysRented > 2)
+                        thisAmount += (DaysRented - 2) * 1.5;
+                    break;
+
+                case MovieType.NEW_RELEASE: //新片
+                    thisAmount += DaysRented * 3;
+                    break;
+
+                case MovieType.CHILDRENS: //兒童片
+                    thisAmount += 1.5;
+                    if (DaysRented > 3)
+                        thisAmount += (DaysRented - 3) * 1.5;
+                    break;
+            }
+
+            return thisAmount;
+        }
     }
 }

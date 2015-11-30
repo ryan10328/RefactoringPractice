@@ -38,7 +38,7 @@ namespace VideoStore
 
             foreach (var each in rentals)// 取得租借記錄
             {
-                double thisAmount = GetAmount(each);
+                double thisAmount = each.GetAmount();
 
                 //累加 常客點數
                 frequentRenterPoints++;
@@ -60,30 +60,6 @@ namespace VideoStore
             return result;
         }
 
-        public double GetAmount(Rental each)
-        {
-            double thisAmount = 0;
-            //determine amounts for each line
-            switch (each.Movie.PriceCode)
-            {
-                case MovieType.REGULAR: //普通片
-                    thisAmount += 2;
-                    if (each.DaysRented > 2)
-                        thisAmount += (each.DaysRented - 2) * 1.5;
-                    break;
-
-                case MovieType.NEW_RELEASE: //新片
-                    thisAmount += each.DaysRented * 3;
-                    break;
-
-                case MovieType.CHILDRENS: //兒童片
-                    thisAmount += 1.5;
-                    if (each.DaysRented > 3)
-                        thisAmount += (each.DaysRented - 3) * 1.5;
-                    break;
-            }
-
-            return thisAmount;
-        }
+        
     }
 }
