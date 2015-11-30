@@ -38,14 +38,7 @@ namespace VideoStore
 
             foreach (var each in rentals)// 取得租借記錄
             {
-                //累加 常客點數
-                frequentRenterPoints++;
-
-                //兩天以上 額外點數
-                if (each.Movie.PriceCode == MovieType.NEW_RELEASE &&
-                    each.DaysRented >1)
-                    frequentRenterPoints++;
-
+                frequentRenterPoints += GetFrequentRenterPoint(each);
                 //顯示此筆租借記錄
                 result += "\t" + each.Movie.Title + "\t" +
                     each.GetAmount().ToString("0") + "\n";
@@ -58,6 +51,19 @@ namespace VideoStore
             return result;
         }
 
-        
+        public int GetFrequentRenterPoint(Rental each)
+        {
+            int frequentRenterPoints = 0;
+            //累加 常客點數
+            frequentRenterPoints++;
+
+            //兩天以上 額外點數
+            if (each.Movie.PriceCode == MovieType.NEW_RELEASE &&
+                each.DaysRented > 1)
+                frequentRenterPoints++;
+
+            return frequentRenterPoints;
+        }
+
     }
 }
