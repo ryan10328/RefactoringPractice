@@ -59,5 +59,19 @@ namespace VideoStore
 
             return thisAmount;
         }
+
+        public int GetFrequentRenterPoint()
+        {
+            int frequentRenterPoints = 0;
+            //累加 常客點數
+            frequentRenterPoints++;
+
+            //兩天以上 額外點數
+            if (Movie.PriceCode == MovieType.NEW_RELEASE &&
+                DaysRented > 1)
+                frequentRenterPoints++;
+
+            return frequentRenterPoints;
+        }
     }
 }
