@@ -31,10 +31,9 @@ namespace VideoStore
 
         public string statement()
         {
-            List<Rental> rentals = _rentals;
             string result = "Rental Record for " + Name + "\n";
 
-            foreach (var each in rentals)// 取得租借記錄
+            foreach (var each in _rentals)// 取得租借記錄
             {
                 //顯示此筆租借記錄
                 result += "\t" + each.Movie.Title + "\t" +
