@@ -45,5 +45,45 @@ namespace VideoStore
             _title = title;
             _priceCode = priceCode;
         }
+
+        public double GetAmount(int DaysRented)
+        {
+            double result = 0;
+            //determine amounts for each line
+            switch (PriceCode)
+            {
+                case MovieType.REGULAR: //普通片
+                    result += 2;
+                    if (DaysRented > 2)
+                        result += (DaysRented - 2) * 1.5;
+                    break;
+
+                case MovieType.NEW_RELEASE: //新片
+                    result += DaysRented * 3;
+                    break;
+
+                case MovieType.CHILDRENS: //兒童片
+                    result += 1.5;
+                    if (DaysRented > 3)
+                        result += (DaysRented - 3) * 1.5;
+                    break;
+            }
+
+            return result;
+        }
+
+        public int GetFrequentRenterPoint(int DaysRented)
+        {
+            int frequentRenterPoints = 0;
+            //累加 常客點數
+            frequentRenterPoints++;
+
+            //兩天以上 額外點數
+            if (PriceCode == MovieType.NEW_RELEASE &&
+                DaysRented > 1)
+                frequentRenterPoints++;
+
+            return frequentRenterPoints;
+        }
     }
 }
