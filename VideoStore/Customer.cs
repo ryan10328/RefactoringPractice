@@ -31,7 +31,6 @@ namespace VideoStore
 
         public string statement()
         {
-            double totalAmount = 0; //總消費金額
             int frequentRenterPoints = 0; //常客績點
             List<Rental> rentals = _rentals;
             string result = "Rental Record for " + Name + "\n";
@@ -42,16 +41,23 @@ namespace VideoStore
                 //顯示此筆租借記錄
                 result += "\t" + each.Movie.Title + "\t" +
                     each.GetAmount().ToString("0") + "\n";
-                totalAmount += each.GetAmount();  
             }
 
             //footer 列印
-            result += "Amount owed is " + totalAmount.ToString("0") + "\n";
+            result += "Amount owed is " + GetTotalCharge().ToString("0") + "\n";
             result += "You earned " + frequentRenterPoints.ToString("0") + " frequent renter points ";
             return result;
         }
 
-        
+        private double GetTotalCharge()
+        {
+            double result = 0;
+            foreach (var each in _rentals)// 取得租借記錄
+            {
+                result += each.GetAmount();
+            }
+            return result;
+        }
 
     }
 }
