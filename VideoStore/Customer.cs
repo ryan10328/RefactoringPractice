@@ -38,8 +38,6 @@ namespace VideoStore
 
             foreach (var each in rentals)// 取得租借記錄
             {
-                double thisAmount = each.GetAmount();
-
                 //累加 常客點數
                 frequentRenterPoints++;
 
@@ -50,8 +48,8 @@ namespace VideoStore
 
                 //顯示此筆租借記錄
                 result += "\t" + each.Movie.Title + "\t" +
-                    thisAmount.ToString("0") + "\n";
-                totalAmount += thisAmount;  
+                    each.GetAmount().ToString("0") + "\n";
+                totalAmount += each.GetAmount();  
             }
 
             //footer 列印
